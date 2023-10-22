@@ -1,7 +1,7 @@
 type: vertical-stack
 cards:
   - type: custom:mushroom-entity-card
-    entity: sensor.pronote_roulet_nathan
+    entity: sensor.pronote_NOM_PRENOM
     secondary_info: last-updated
     icon: mdi:update
     name: Derniere mise a jour pronote
@@ -9,8 +9,8 @@ cards:
   - type: markdown
     content: >-
       {% set items =
-      state_attr('sensor.pronote_roulet_nathan_timetable_today','lessons') %}
-      <div>Emploi du temps de nathan du : {{as_timestamp(items[0].start_at) |
+      state_attr('sensor.pronote_NOM_PRENOM_timetable_today','lessons') %}
+      <div>Emploi du temps du : {{as_timestamp(items[0].start_at) |
       int | timestamp_custom('%d/%m/%Y', true)}} </div> <table>   {% for i in
       range(0, items | count, 1) %}  <tr>  {%- if items[i].canceled != True -%} 
       <td width='10%'><mark>{{ items[i].start_time}}</td>  <td><mark>{{
@@ -89,8 +89,8 @@ cards:
   - type: markdown
     content: >-
       {% set items =
-      state_attr('sensor.pronote_roulet_nathan_timetable_next_day','lessons') %}
-      <div>Emploi du temps de nathan du : {{as_timestamp(items[0].start_at) |
+      state_attr('sensor.pronote_NOM_PRENOM_timetable_next_day','lessons') %}
+      <div>Emploi du temps du : {{as_timestamp(items[0].start_at) |
       int |timestamp_custom('%d/%m/%Y', true)}}</div> 
         <table>   
         {% for i in range(0,items | count, 1) %}  
@@ -199,8 +199,8 @@ cards:
           }
   - type: markdown
     content: >-
-      <div>Absences et sorties exeptionelle nathan</div><table>  {% set items =
-      state_attr('sensor.pronote_roulet_nathan_absences','absences') %} {% for i
+      <div>Absences et sorties exeptionelle</div><table>  {% set items =
+      state_attr('sensor.pronote_NOM_PRENOM_absences','absences') %} {% for i
       in range(0, items | count, 1) %} <tr> {%- if items[i].justified == True
       -%} <td width='10%'> <mark> {{ items[i].from.strftime("%d/%m")
       }}</mark></td> {% else %} <td> <span>{{ items[i].from.strftime("%d/%m")
@@ -282,8 +282,8 @@ cards:
           }
   - type: markdown
     content: >-
-      <div>Evaluations de nathan</div> <table> {% set items =
-      state_attr('sensor.pronote_roulet_nathan_evaluations','evaluations')%}  {%
+      <div>Evaluations</div> <table> {% set items =
+      state_attr('sensor.pronote_NOM_PRENOM_evaluations','evaluations')%}  {%
       for i in range(0, items | count, 1) %} <tr> <td width='5%'><mark> {{
       items[i].date.strftime("%d/%m") }} </td> <td width='70%'> {{
       items[i].subject }} </td> <td width='25%'>
@@ -365,10 +365,10 @@ cards:
               }
   - type: markdown
     content: |-
-      <div>Devoirs de nathan</div>
+      <div>Devoirs</div>
       <table>
           <tbody>
-              {% set items = state_attr('sensor.pronote_roulet_nathan_homework','homework') %}
+              {% set items = state_attr('sensor.pronote_NOM_PRENOM_homework','homework') %}
               {%-for i in range(0, items | count, 1) -%}
               <tr>
                   <td>
