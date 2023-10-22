@@ -1,3 +1,4 @@
+#carte entite mise a jour
 type: vertical-stack
 cards:
   - type: custom:mushroom-entity-card
@@ -6,6 +7,7 @@ cards:
     icon: mdi:update
     name: Derniere mise a jour pronote
     icon_color: green
+#carte emploi du temps du jour
   - type: markdown
     content: >-
       {% set items =
@@ -86,6 +88,7 @@ cards:
           }tr:nth-child(n+2) > td:nth-child(2) {
             text-align: left;
           }
+#carte emploi du temps du prochain jour
   - type: markdown
     content: >-
       {% set items =
@@ -197,6 +200,7 @@ cards:
           tr:nth-child(n+2) > td:nth-child(2) {
             text-align: left;
           }
+#carte absences
   - type: markdown
     content: >-
       <div>Absences et sorties exeptionelle</div><table>  {% set items =
@@ -280,6 +284,7 @@ cards:
           tr:nth-child(n+2) > td:nth-child(2) {
             text-align: left;
           }
+#carte evaluations
   - type: markdown
     content: >-
       <div>Evaluations</div> <table> {% set items =
@@ -363,6 +368,7 @@ cards:
           tr:nth-child(n+2) > td:nth-child(2) {
             text-align: left;
               }
+#carte devoirs
   - type: markdown
     content: |-
       <div>Devoirs</div>
