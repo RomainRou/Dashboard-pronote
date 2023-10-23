@@ -8,458 +8,505 @@ cards:
     name: Derniere mise a jour pronote
     icon_color: green
 #carte emploi du temps du jour
-  - type: markdown
-    content: >-
-      {% set items =
-      state_attr('sensor.pronote_NOM_PRENOM_timetable_today','lessons') %}
-      <div>Emploi du temps du : {{as_timestamp(items[0].start_at) |
-      int | timestamp_custom('%d/%m/%Y', true)}} </div> <table>   {% for i in
-      range(0, items | count, 1) %}  <tr>  {%- if items[i].canceled != True -%} 
-      <td width='10%'><mark>{{ items[i].start_time}}</td>  <td><mark>{{
-      items[i].end_time }}</td></mark> <td>{{ items[i].lesson }} {% else %}
-      <td><del>{{ items[i].start_time }}</td> <td><del>{{
-      items[i].end_time}}</td> <td><del>{{ items[i].lesson }}</del>&emsp;{%-
-      endif -%} {% if items[i].status != None %} <span> {{ items[i].status
-      }}</td> {% endif %} <td> {{items[i].classroom }}</td> </tr> {% endfor %}
+ type: markdown
+content: >-
+  {% set items =
+  state_attr('sensor.pronote_NOM_PRENOM_timetable_today','lessons') %}
+  <div>Emploi du temps du : {{as_timestamp(items[0].start_at) | int
+  |timestamp_custom('%d/%m/%Y', true)}}</div> 
+    <table>   
+      {% for i in range(0,items | count, 1) %}  
+    <tr>  
+      {%- if items[i].canceled != True -%}  
+      <td width='12%'>
+        <mark>{{ items[i].start_time}}</mark>
+      </td>  
+      <td>
+        <mark>{{items[i].end_time }}</mark>
+      </td>
+      <td>{{ items[i].lesson }} {% else %}
+        <td>
+          <del>{{ items[i].start_time }}</del>
+        </td> 
+        <td>
+          <del>{{ items[i].end_time}}</del>
+        </td>
+        <td>
+          <del>{{ items[i].lesson }}</del>&emsp;{%- endif -%}{% if items[i].status!= None %} 
+          <br><span>{{ items[i].status }}</span>
+        </td> 
+          {% endif %} <td>
+          <h1>{{items[i].classroom }}</h1>
+        </td> 
+      </tr> {% endfor %} 
       </table> 
-    card_mod:
-      style:
-        .: |
-          ha-card ha-markdown {
-            padding:0px
-          }ha-card ha-markdown.no-header {
-            padding:0px
-          }ha-markdown {
-              max-height: 160px;
-              overflow-y: auto;
-              border-bottom-left-radius: 10px; 
-              border-bottom-right-radius: 10px;
-          }ha-markdown$: |
-            div{
-              background-color: rgb(54, 54, 54, 0.3);
-              padding: 5px 5px;
-              color:white;
-              font-weight:normal;
-              text-align: center;
-              font-size:1em;
-              border-top-left-radius: 10px; 
-              border-top-right-radius: 10px; 
-          }table{
-            border-collapse: collapse;
-            font-size: 0.7em;
-            font-family: Roboto;
-            width: 100%;
-            outline: 0px solid #393c3d;
-            margin-top:5px;
-          }caption {
-              text-align: center;
-              font-weight: bold;
-              font-size: 0.7em;
-          }td {
-              padding: 5px 8px 5px 8px;
-              text-align: left;
-              border-bottom: 0px solid #1c2020;
-          }tr {
-              border-bottom: 0px solid #1c2020;
-          }tr:nth-of-type(even) {
-              background-color: rgb(54, 54, 54, 0.3);
-          }tr:last-of-type {
-              border-bottom: transparent;
-          }mark {
-              background: #00E199;
-              color: #222627;
-              border-radius: 10px;
-              padding: 5px;
+card_mod:
+  style:
+    .: |
+      ha-card ha-markdown {
+        padding:0px
+      }
+      ha-card ha-markdown.no-header {
+        padding:0px
+      }
+      ha-markdown {
+          max-height: 160px;
+          overflow-y: auto;
+          border-bottom-left-radius: 10px; 
+          border-bottom-right-radius: 10px;
+        }
+    ha-markdown$: |
+      div {
+          background-color:rgb(54, 54, 54, 0.3);
+          padding: 5px 5px;
+          color:white;
+          font-weight:normal;
+          font-size:1em;
+          border-top-left-radius: 10px; 
+          border-top-right-radius: 10px; 
+          text-align: center;
+      }
+      table{
+        border-collapse: collapse;
+        font-size: 0.7em;
+        font-family: Roboto;
+        width: 100%;
+        outline: 0px solid #393c3d;
+        margin-top:5px
+      } caption {
+          font-weight: bold;
+          font-size: 1.2em;
+      } td {
+          padding: 5px 8px 5px 8px;
+          text-align: left;
+          border-bottom: 0px solid #1c2020;
+      }
+      tr {
+          border-bottom: 0px solid #1c2020;
+      }
 
-          }h1 {
-              background: white;
-              color: black;
-              border-radius: 5px;
-              padding: 5px;
-              font-size: 0.7em;
-              font-weight:normal;
-          }span {
-              background: #EC4B34;
-              color: #222627;
-              border-radius: 10px;
-              padding: 5px;
-          }span {
-              padding: 5px;
-          }tr:nth-child(n+2) > td:nth-child(2) {
-            text-align: left;
-          }
-#carte emploi du temps du prochain jour
-  - type: markdown
-    content: >-
-      {% set items =
-      state_attr('sensor.pronote_NOM_PRENOM_timetable_next_day','lessons') %}
-      <div>Emploi du temps du : {{as_timestamp(items[0].start_at) |
-      int |timestamp_custom('%d/%m/%Y', true)}}</div> 
-        <table>   
-        {% for i in range(0,items | count, 1) %}  
-        <tr>  {%- if items[i].canceled != True -%}  
-          <td width='10%'>
-            <mark>{{ items[i].start_time}}
-          </td>  
-          <td>
-            <mark>{{items[i].end_time }}
-          </td>
-          </mark> 
-          <td>{{ items[i].lesson }} {% else %}
-            <td>
-              <del>{{ items[i].start_time }}
-            </td> 
-            <td>
-              <del>{{ items[i].end_time}}
-            </td>
-            <td>
-              <del>{{ items[i].lesson }}</del>&emsp;{%- endif -%} {% if items[i].status!= None %} 
-              <span> {{ items[i].status }}
-            </td> 
-              {% endif %} <td>
-              <h1>{{items[i].classroom }}</h1>
-            </td> 
-          </tr> {% endfor %} 
-          </table> 
-    card_mod:
-      style:
-        .: |
-          ha-card ha-markdown {
-            padding:0px
-          }
-          ha-card ha-markdown.no-header {
-            padding:0px
-          }
-          ha-markdown {
-              max-height: 160px;
-              overflow-y: auto;
-              border-bottom-left-radius: 10px; 
-              border-bottom-right-radius: 10px;
-            }
-        ha-markdown$: |
-          div {
-              background-color:rgb(54, 54, 54, 0.3);
-              padding: 5px 5px;
-              color:white;
-              font-weight:normal;
-              font-size:1em;
-              border-top-left-radius: 10px; 
-              border-top-right-radius: 10px; 
-              text-align: center;
-          }
-          table{
-            border-collapse: collapse;
-            font-size: 0.7em;
-            font-family: Roboto;
-            width: 100%;
-            outline: 0px solid #393c3d;
-            margin-top:5px
-          } caption {
-              font-weight: bold;
-              font-size: 1.2em;
-          } td {
-              padding: 5px 8px 5px 8px;
-              text-align: left;
-              border-bottom: 0px solid #1c2020;
-          }
-          tr {
-              border-bottom: 0px solid #1c2020;
-          }
+      tr:nth-of-type(even) {
+          background-color: rgb(54, 54, 54, 0.3);
+      }
+      tr:last-of-type {
+          border-bottom: transparent;          }
+      mark {
+          background: #00E199 ;
+          color: #222627;
+          border-radius: 5px;
+          padding: 5px;
+      }
+      h1 {
+          background: white;
+          color: black;
+          border-radius: 5px;
+          padding: 5px;
+          font-size: 0.7em;
+          font-weight:normal;
+          text-align: center; 
+      }
+      class {
+          background: #00E199;
+          color: #222627;
+          border-radius: 10px;
+          padding: 5px;
+      }
+      span {
+          background: #EC4B34;
+          color: #222627;
+          border-radius: 5px;
+          padding: 5px;
+      }
+      tr:nth-child(n+2) > td:nth-child(2) {
+        text-align: left;
+      }
+# emploi du temps du prochain jour
+ type: markdown
+ content: >-
+  {% set items =
+  state_attr('sensor.pronote_NOM_PRENOM_timetable_next_day','lessons') %}
+  <div>Emploi du temps  du : {{as_timestamp(items[0].start_at) | int
+  |timestamp_custom('%d/%m/%Y', true)}}</div> 
+    <table>   
+      {% for i in range(0,items | count, 1) %}  
+    <tr>  
+      {%- if items[i].canceled != True -%}  
+      <td width='12%'>
+        <mark>{{ items[i].start_time}}</mark>
+      </td>  
+      <td>
+        <mark>{{items[i].end_time }}</mark>
+      </td>
+      <td>{{ items[i].lesson }} {% else %}
+        <td>
+          <del>{{ items[i].start_time }}</del>
+        </td> 
+        <td>
+          <del>{{ items[i].end_time}}</del>
+        </td>
+        <td>
+          <del>{{ items[i].lesson }}</del>&emsp;{%- endif -%}{% if items[i].status!= None %} 
+          <br><span>{{ items[i].status }}</span>
+        </td> 
+          {% endif %} <td>
+          <h1>{{items[i].classroom }}</h1>
+        </td> 
+      </tr> {% endfor %} 
+      </table> 
+card_mod:
+  style:
+    .: |
+      ha-card ha-markdown {
+        padding:0px
+      }
+      ha-card ha-markdown.no-header {
+        padding:0px
+      }
+      ha-markdown {
+          max-height: 160px;
+          overflow-y: auto;
+          border-bottom-left-radius: 10px; 
+          border-bottom-right-radius: 10px;
+        }
+    ha-markdown$: |
+      div {
+          background-color:rgb(54, 54, 54, 0.3);
+          padding: 5px 5px;
+          color:white;
+          font-weight:normal;
+          font-size:1em;
+          border-top-left-radius: 10px; 
+          border-top-right-radius: 10px; 
+          text-align: center;
+      }
+      table{
+        border-collapse: collapse;
+        font-size: 0.7em;
+        font-family: Roboto;
+        width: 100%;
+        outline: 0px solid #393c3d;
+        margin-top:5px
+      } caption {
+          font-weight: bold;
+          font-size: 1.2em;
+      } td {
+          padding: 5px 8px 5px 8px;
+          text-align: left;
+          border-bottom: 0px solid #1c2020;
+      }
+      tr {
+          border-bottom: 0px solid #1c2020;
+      }
 
-          tr:nth-of-type(even) {
-              background-color: rgb(54, 54, 54, 0.3);
-          }
-          tr:last-of-type {
-              border-bottom: transparent;          }
-          mark {
-              background: #00E199 ;
-              color: #222627;
-              border-radius: 5px;
-              padding: 5px;
-          }
-          h1 {
-              background: white;
-              color: black;
-              border-radius: 5px;
-              padding: 5px;
-              font-size: 0.7em;
-              font-weight:normal;
-          }
-          class {
-              background: #00E199;
-              color: #222627;
-              border-radius: 10px;
-              padding: 5px;
-          }
-          span {
-              background: #EC4B34;
-              color: #222627;
-              border-radius: 5px;
-              padding: 5px;
-          }
-          tr:nth-child(n+2) > td:nth-child(2) {
-            text-align: left;
-          }
+      tr:nth-of-type(even) {
+          background-color: rgb(54, 54, 54, 0.3);
+      }
+      tr:last-of-type {
+          border-bottom: transparent;          }
+      mark {
+          background: #00E199 ;
+          color: #222627;
+          border-radius: 5px;
+          padding: 5px;
+      }
+      h1 {
+          background: white;
+          color: black;
+          border-radius: 5px;
+          padding: 5px;
+          font-size: 1em;
+          font-weight:normal;
+          text-align: center;
+      }
+      class {
+          background: #00E199;
+          color: #222627;
+          border-radius: 10px;
+          padding: 5px;
+      }
+      span {
+          background: #EC4B34;
+          color: #222627;
+          border-radius: 5px;
+          padding: 5px;
+          fonty-size: 1em;
+      }
+      tr:nth-child(n+2) > td:nth-child(2) {
+        text-align: left;
+      }
 #carte absences
-  - type: markdown
-    content: >-
-      <div>Absences et sorties exeptionelle</div><table>  {% set items =
-      state_attr('sensor.pronote_NOM_PRENOM_absences','absences') %} {% for i
-      in range(0, items | count, 1) %} <tr> {%- if items[i].justified == True
-      -%} <td width='10%'> <mark> {{ items[i].from.strftime("%d/%m")
-      }}</mark></td> {% else %} <td> <span>{{ items[i].from.strftime("%d/%m")
-      }}</span></td>  {%- endif -%}  <td><h1>{{ items[i].hours }}</h1></td>
-      <td>{{ items[i].reason }}</td> {% endfor %}
-    card_mod:
-      style:
-        .: |
-          ha-card ha-markdown {
-            padding:0px
-          }
-          ha-card ha-markdown.no-header {
-            padding:0px
-          }
-          ha-markdown {
-              max-height: 160px;
-              overflow-y: auto;
-              border-bottom-left-radius: 10px; 
-              border-bottom-right-radius: 10px;
-            }
-        ha-markdown$: |
-          div {
-              background-color: rgb(54, 54, 54, 0.3);
-              padding: 5px 5px;
-              color:white;
-              font-weight:normal;
-              font-size:1em;
-              border-top-left-radius: 10px; 
-              border-top-right-radius: 10px;
-              text-align:center;
-          }
-          table{
-            border-collapse: collapse;
-            font-family: Roboto;
-            outline: 0px solid #393c3d;
-            margin-top:0px;
-            font-size:0.7em;
-            width: 100%;
-          } caption {
-              font-weight: bold;
-              font-size: 0.7em;
-          } td {
-              padding: 5px 8px 5px 8px;
-              border-bottom: 0px solid #1c2020;
-          }
-          tr {
-              border-bottom: 0px solid #1c2020;
-          }
-
-          tr:nth-of-type(even) {
-              background-color: rgb(54, 54, 54, 0.3);
-          }
-          tr:last-of-type {
-              border-bottom: transparent;
-          }
-          mark {
-              background: #009767;
-              color: #222627;
-              border-radius: 5px;
-              padding: 5px;
-          }
-          h1 {
-              background: #00E199;
-              color: #222627;
-              border-radius: 5px;
-              padding: 5px;
-              font-size: 1em;
-              font-weight:normal;
-              text-align: center;
-          }
-          span {
-              background: #EC4B34;
-              color: #222627;
-              border-radius: 5px;
-              padding: 5px
-          }
-          tr:nth-child(n+2) > td:nth-child(2) {
-            text-align: left;
-          }
+ type: markdown
+ content: |-
+  <div>Absences et sorties exeptionelle</div> <table>
+    {% set items=state_attr('sensor.pronote_NOM_PRENOM_absences','absences') %} {% for i in range(0, items | count, 1) %} 
+    <tr> 
+      {%- if items[i].justified == True -%} 
+      <td>
+        <mark>{{ items[i].from.strftime("%d/%m") }}</mark>
+      </td> 
+        {% else %} 
+      <td>
+        <span>{{ items[i].from.strftime("%d/%m") }} {%-endif-%}</span> 
+      <td>
+        <h1>{{ items[i].hours }}</h1>
+      </td>
+      <td>{{ items[i].reason }} {% endfor %}</td>
+    </tr>
+  </table>
+card_mod:
+  style:
+    .: |
+      ha-card ha-markdown {
+        padding:0px;
+      }
+      ha-card ha-markdown.no-header {
+        padding:0px;
+      }
+      ha-markdown {
+          max-height: 160px;
+          overflow-y: auto;
+          border-bottom-left-radius: 10px; 
+          border-bottom-right-radius: 10px;
+        }
+    ha-markdown$: |
+      div {
+          background-color: rgb(54, 54, 54, 0.3);
+          padding: 5px 5px;
+          color:white;
+          font-weight:normal;
+          font-size:1em;
+          border-top-left-radius: 10px; 
+          border-top-right-radius: 10px;
+          text-align:center;
+      }
+      table{
+        border-collapse: collapse;
+        font-family: Roboto;
+        outline: 0px solid #393c3d;
+        margin-top:0px;
+        font-size:0.7em;
+        width: 100%;
+      } 
+      caption {
+          font-weight: bold;
+          font-size: 0.7em;
+      } 
+      td {
+          padding: 5px 8px 5px 8px;
+          border-bottom: 0px solid #1c2020;
+      }
+      tr {
+          border-bottom: 0px solid #1c2020;
+      }
+      tr:nth-of-type(even) {
+          background-color: rgb(54, 54, 54, 0.3);
+      }
+      tr:last-of-type {
+          border-bottom: transparent;
+      }
+      mark {
+          background: #00BD81;
+          color: #222627;
+          border-radius: 5px;
+          padding: 5px;
+      }
+      h1 {
+          background: #00E199;
+          color: #222627;
+          border-radius: 5px;
+          padding: 5px;
+          font-size: 0.9em;
+          font-weight: normal;
+          text-align: center;
+      }
+      span {
+          background: #EC4B34;
+          color: #222627;
+          border-radius: 5px;
+          padding: 5px;
+      }
+      tr:nth-child(n+2) > td:nth-child(2) {
+        text-align: left;
+      }
 #carte evaluations
-  - type: markdown
-    content: >-
-      <div>Evaluations</div> <table> {% set items =
-      state_attr('sensor.pronote_NOM_PRENOM_evaluations','evaluations')%}  {%
-      for i in range(0, items | count, 1) %} <tr> <td width='5%'><mark> {{
-      items[i].date.strftime("%d/%m") }} </td> <td width='70%'> {{
-      items[i].subject }} </td> <td width='25%'>
+ type: markdown
+ content: >-
+  <div>Evaluations</div> <table> {% set items =
+  state_attr('sensor.pronote_NOM_PRENOM_evaluations','evaluations')%}  {% for
+  i in range(0, items | count, 1) %} <tr> <td width='15%'><mark> {{
+  items[i].date.strftime("%d/%m") }} </td> <td width='60%'> {{ items[i].subject
+  }} </td> <td width='25%'>
 
-      {% set acquisitions = items[i].acquisitions %}
+  {% set acquisitions = items[i].acquisitions %}
 
-      {% for j in range(0,acquisitions|count,1) %}{% if acquisitions[j].level ==
-      'Très bonne maîtrise' %}✅ {% elif acquisitions[j].level == 'Maîtrise
-      satisfaisante' %}🟢{% elif acquisitions[j].level == 'Maîtrise fragile' 
-      %}🟠{% elif acquisitions[j].level == 'Maîtrise insuffisante'  %}🔴{% else
-      %}?{% endif %}{% endfor %}
+  {% for j in range(0,acquisitions|count,1) %}{% if acquisitions[j].level ==
+  'Très bonne maîtrise' %}✅ {% elif acquisitions[j].level == 'Maîtrise
+  satisfaisante' %}🟢{% elif acquisitions[j].level == 'Maîtrise fragile'  %}🟠{%
+  elif acquisitions[j].level == 'Maîtrise insuffisante'  %}🔴{% else %}?{% endif
+  %}{% endfor %}
 
-      </td> </tr> {% endfor %}  </table>
-    card_mod:
-      style:
-        .: |
-          ha-card ha-markdown {
-            padding:0px
+  </td> </tr> {% endfor %}  </table>
+card_mod:
+  style:
+    .: |
+      ha-card ha-markdown {
+        padding:0px
+      }
+      ha-card ha-markdown.no-header {
+        padding:0px
+      }
+      ha-markdown {
+          max-height: 160px;
+          overflow-y: auto;
+          border-bottom-left-radius: 10px; 
+          border-bottom-right-radius: 10px;
+      }
+    ha-markdown$: |
+      div{
+          background-color: rgb(54, 54, 54, 0.3);
+          padding: 5px 5px;
+          color:white;
+          font-weight:normal;
+          text-align: center;
+          font-size:1em;
+          border-top-left-radius: 10px; 
+          border-top-right-radius: 10px; 
           }
-          ha-card ha-markdown.no-header {
-            padding:0px
+      table{
+          border-collapse: collapse;
+          font-family: Roboto;
+          outline: 0px solid #393c3d;
+          font-size:0.7em;
+          width: 100%;
           }
-          ha-markdown {
-              max-height: 160px;
-              overflow-y: auto;
-              border-bottom-left-radius: 10px; 
-              border-bottom-right-radius: 10px;
+      td {
+          padding: 5px 8px 5px 8px;
+          border-bottom: 0px solid #1c2020;
           }
-        ha-markdown$: |
-          div{
-              background-color: rgb(54, 54, 54, 0.3);
-              padding: 5px 5px;
-              color:white;
-              font-weight:normal;
-              text-align: center;
-              font-size:1em;
-              border-top-left-radius: 10px; 
-              border-top-right-radius: 10px; 
-              }
-          table{
-              border-collapse: collapse;
-              font-family: Roboto;
-              outline: 0px solid #393c3d;
-              font-size:0.7em;
-              width: 100%;
-              }
-          td {
-              padding: 5px 8px 5px 8px;
-              border-bottom: 0px solid #1c2020;
-              }
-          tr {
-              line-height: 4px;
-              margin-top:0px;
-              background-color:transparent;
-              }
-          tr:nth-of-type(even) {
-              background-color: rgb(54, 54, 54, 0.3);
-              }
-          tr:last-of-type {
-              border-bottom: transparent;
-              }
-          mark {
-              background: #009767;
-              color: #222627;
-              border-radius: 5px;
-              padding: 5px;
-              }
-          span {
-              background: #EC4B34;
-              color: #222627;
-              border-radius: 10px;
-              padding: 5px;
-              }
-          span {
-              padding: 5px;
-              }
-          tr:nth-child(n+2) > td:nth-child(2) {
-            text-align: left;
-              }
+      tr {
+          line-height: 4px;
+          margin-top:0px;
+          background-color:transparent;
+          }
+      tr:nth-of-type(even) {
+          background-color: rgb(54, 54, 54, 0.3);
+          }
+      tr:last-of-type {
+          border-bottom: transparent;
+          }
+      mark {
+          background: #009767;
+          color: #222627;
+          border-radius: 5px;
+          padding: 5px;
+          }
+      span {
+          background: #EC4B34;
+          color: #222627;
+          border-radius: 10px;
+          padding: 5px;
+          }
+      span {
+          padding: 5px;
+          }
+      tr:nth-child(n+2) > td:nth-child(2) {
+        text-align: left;
+          }
 #carte devoirs
-  - type: markdown
-    content: |-
-      <div>Devoirs</div>
-      <table>
-          <tbody>
-              {% set items = state_attr('sensor.pronote_NOM_PRENOM_homework','homework') %}
-              {%-for i in range(0, items | count, 1) -%}
-              <tr>
-                  <td>
-                  {%- if items[i].done == true -%}
-                      <mark>
-                       {{items[i].date.strftime("%d/%m")}}</td>
-                      </mark>
-                  {%- else -%}
-                      <span>
-                      {{items[i].date.strftime("%d/%m")}}
-                      </span>
-                  {% endif %}</td>              
-                  <td>{{items[i].subject}}</td>
-                  <td>{{items[i].description}}</td>
-              </tr>
-              {% endfor %}
-        </tbody>
-      </table>
-    card_mod:
-      style:
-        .: |
-          ha-card ha-markdown {
-            padding:0px
-          }
-          ha-card ha-markdown.no-header {
-            padding:0px
-          }
-          ha-markdown {
-              max-height: 160px;
-              overflow-y: auto;
-              border-bottom-left-radius: 10px; 
-              border-bottom-right-radius: 10px;
-            }
-        ha-markdown$: |
-          div {
-              background-color:rgb(54, 54, 54, 0.3);
-              padding: 5px 5px;
-              color:white;
-              font-weight:normal;
-              font-size:1em;
-              border-top-left-radius: 10px; 
-              text-align: center;
-               
-          }
-          table{
-            border-collapse: collapse;
-            font-size: 0.7em;
-            font-family: Roboto;
-            width: auto;
-            outline: 0px solid #393c3d;
-            margin-top: 0px;
-          } caption {
-              text-align: center;
-              font-weight: bold;
-              font-size: 1em;
-          } td {
-              padding: 5px 8px 5px 8px;
-              text-align: left;
-              border-bottom: 0px solid #1c2020;
-          }
-          tr {
-              border-bottom: 0px solid #1c2020;
-          }
+  type: markdown
+  content: |-
+  <div>Devoirs</div>
+  <table>
+      <tbody>
+          {% set items = state_attr('sensor.pronote_NOM_PRENOM_homework','homework') %}
+          {%-for i in range(0, items | count, 1) -%}
+          <tr>
+              <td width='15%'>
+              {%- if items[i].done == true -%}
+                  <mark>
+                   {{items[i].date.strftime("%d/%m")}}</td>
+                  </mark>
+              {%- else -%}
+                  <span>
+                  {{items[i].date.strftime("%d/%m")}}
+                  </span>
+              {% endif %}</td>              
+              <td>{{items[i].subject}}</td>
+              <td>{{items[i].description}}</td>
+          </tr>
+          {% endfor %}
+    </tbody>
+  </table>
+card_mod:
+  style:
+    .: |
+      ha-card ha-markdown {
+        padding:0px
+      }
+      ha-card ha-markdown.no-header {
+        padding:0px
+      }
+      ha-markdown {
+          max-height: 160px;
+          overflow-y: auto;
+          border-bottom-left-radius: 10px; 
+          border-bottom-right-radius: 10px;
+        }
+    ha-markdown$: |
+      div {
+          background-color:rgb(54, 54, 54, 0.3);
+          padding: 5px 5px;
+          color:white;
+          font-weight:normal;
+          font-size:1em;
+          border-top-left-radius: 10px; 
+          text-align: center;
+           
+      }
+      table{
+        border-collapse: collapse;
+        font-size: 0.7em;
+        font-family: Roboto;
+        width: auto;
+        outline: 0px solid #393c3d;
+        margin-top: 0px;
+      } caption {
+          text-align: center;
+          font-weight: bold;
+          font-size: 1em;
+      } td {
+          padding: 5px 8px 5px 8px;
+          text-align: left;
+          border-bottom: 0px solid #1c2020;
+      }
+      tr {
+          border-bottom: 0px solid #1c2020;
+      }
 
-          tr:nth-of-type(even) {
-              background-color: rgb(54, 54, 54, 0.3);
-          }
-          tr:last-of-type {
-              border-bottom: transparent;
-          }
-          mark {
-              background: #009767;
-              color: #222627;
-              border-radius: 5px;
-              padding: 5px;
-          }
-          span {
-              background: #EC4B34;
-              color: #222627;
-              border-radius: 5px;
-              padding: 5px;
-          }
-          span {
-              padding: 5px;
-          }
+      tr:nth-of-type(even) {
+          background-color: rgb(54, 54, 54, 0.3);
+      }
+      tr:last-of-type {
+          border-bottom: transparent;
+      }
+      mark {
+          background: #009767;
+          color: #222627;
+          border-radius: 5px;
+          padding: 5px;
+      }
+      span {
+          background: #EC4B34;
+          color: #222627;
+          border-radius: 5px;
+          padding: 5px;
+      }
+      span {
+          padding: 5px;
+      }
+      tr:nth-child(n+2) > td:nth-child(2) {
+        text-align: left;
+      }
           tr:nth-child(n+2) > td:nth-child(2) {
             text-align: left;
           }
