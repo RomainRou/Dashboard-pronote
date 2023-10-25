@@ -1,22 +1,21 @@
+#carte mise a jour pronote
 type: vertical-stack
 cards:
-#carte mise a jour pronote
   - type: custom:mushroom-entity-card
     entity: sensor.pronote_NOM_PRENOM
     secondary_info: last-updated
     icon: mdi:update
     name: Derniere mise a jour pronote
     icon_color: green
+#carte emploi du temp du jour    
   - type: vertical-stack
     cards:
-#carte emploi du temps du jour
       - type: markdown
         content: >-
-          {% set items =
+          <div>{% set items =
           state_attr('sensor.pronote_NOM_PRENOM_timetable_today','lessons')
-          %} <div>Emploi du temps du :
-          {{as_timestamp(items[0].start_at) | int |timestamp_custom('%d/%m/%Y',
-          true)}}</div> 
+          %}📆 Emploi du temps du : {{as_timestamp(items[0].start_at)
+          | int |timestamp_custom('%d/%m/%Y', true)}}</div> 
             <table>   
               {% for i in range(0,items | count, 1) %}  
             <tr>  
@@ -53,7 +52,7 @@ cards:
                 padding:0px
               }
               ha-markdown {
-                  max-height: 160px;
+                  max-height: 190px;
                   overflow-y: auto;
                   border-bottom-left-radius: 10px; 
                   border-bottom-right-radius: 10px;
@@ -100,6 +99,7 @@ cards:
                   color: #222627;
                   border-radius: 5px;
                   padding: 5px;
+                  border: solid #008d60 2px;
               }
               h1 {
                   background: white;
@@ -109,6 +109,7 @@ cards:
                   font-size: 0.7em;
                   font-weight:normal;
                   text-align: center; 
+                  border: solid #E5E2E1 2px;
               }
               class {
                   background: #00E199;
@@ -125,14 +126,13 @@ cards:
               tr:nth-child(n+2) > td:nth-child(2) {
                 text-align: left;
               }
+#carte emploi du temps du prochain jour              
       - type: markdown
-#carte emploi du temps du jour suivant      
         content: >-
-          {% set items =
+          <div>{% set items =
           state_attr('sensor.pronote_NOM_PRENOM_timetable_next_day','lessons')
-          %} <div>Emploi du temps du :
-          {{as_timestamp(items[0].start_at) | int |timestamp_custom('%d/%m/%Y',
-          true)}}</div> 
+          %}📆 Emploi du temps du : {{as_timestamp(items[0].start_at)
+          | int |timestamp_custom('%d/%m/%Y', true)}}</div> 
             <table>   
               {% for i in range(0,items | count, 1) %}  
             <tr>  
@@ -169,7 +169,7 @@ cards:
                 padding:0px
               }
               ha-markdown {
-                  max-height: 160px;
+                  max-height: 190px;
                   overflow-y: auto;
                   border-bottom-left-radius: 10px; 
                   border-bottom-right-radius: 10px;
@@ -216,6 +216,7 @@ cards:
                   color: #222627;
                   border-radius: 5px;
                   padding: 5px;
+                  border: solid #008d60 2px;;
               }
               h1 {
                   background: white;
@@ -225,6 +226,8 @@ cards:
                   font-size: 1em;
                   font-weight:normal;
                   text-align: center;
+                  border: solid #999999 2px;
+                  
               }
               class {
                   background: #00E199;
@@ -238,14 +241,15 @@ cards:
                   border-radius: 5px;
                   padding: 5px;
                   fonty-size: 1em;
+                  border: solid #9c3324 2px;
               }
               tr:nth-child(n+2) > td:nth-child(2) {
                 text-align: left;
               }
+#carte absences et sorties              
   - type: markdown
-#carte absences et sorties  
     content: |-
-      <div>Absences et sorties exeptionelle nathan</div> <table>
+      <div>❌ Absences et sorties exeptionelle</div> <table>
         {% set items=state_attr('sensor.pronote_NOM_PRENOM_absences','absences') %} {% for i in range(0, items | count, 1) %} 
         <tr> 
           {%- if items[i].justified == True -%} 
@@ -319,6 +323,7 @@ cards:
               color: #222627;
               border-radius: 5px;
               padding: 5px;
+              border: solid #005f41 2px;
           }
           h1 {
               background: #00E199;
@@ -328,6 +333,7 @@ cards:
               font-size: 0.9em;
               font-weight: normal;
               text-align: center;
+              border: solid #008d60 2px;
           }
           span {
               background: #EC4B34;
@@ -338,21 +344,21 @@ cards:
           tr:nth-child(n+2) > td:nth-child(2) {
             text-align: left;
           }
+#carte evaluations          
   - type: markdown
-#carte evaluations  
     content: >-
-      <div>Evaluations</div> <table> {% set items =
+      <div>📝 Evaluations</div> <table> {% set items =
       state_attr('sensor.pronote_NOM_PRENOM_evaluations','evaluations')%}  {%
-      for i in range(0, items | count, 1) %} <tr> <td width='15%'><mark> {{
+      for i in range(0, items | count, 1) %} <tr> <td width='20%'><mark> {{
       items[i].date.strftime("%d/%m") }} </td> <td width='60%'> {{
-      items[i].subject }} </td> <td width='25%'>
+      items[i].subject }} </td> <td width='20%'>
 
       {% set acquisitions = items[i].acquisitions %}
 
       {% for j in range(0,acquisitions|count,1) %}{% if acquisitions[j].level ==
       'Très bonne maîtrise' %}✅ {% elif acquisitions[j].level == 'Maîtrise
-      satisfaisante' %}🟢{% elif acquisitions[j].level == 'Maîtrise fragile' 
-      %}🟠{% elif acquisitions[j].level == 'Maîtrise insuffisante'  %}🔴{% else
+      satisfaisante' %}🟩{% elif acquisitions[j].level == 'Maîtrise fragile' 
+      %}🟧{% elif acquisitions[j].level == 'Maîtrise insuffisante'  %}🟥{% else
       %}?{% endif %}{% endfor %}
 
       </td> </tr> {% endfor %}  </table>
@@ -366,7 +372,7 @@ cards:
             padding:0px
           }
           ha-markdown {
-              max-height: 160px;
+              max-height: 165px;
               overflow-y: auto;
               border-bottom-left-radius: 10px; 
               border-bottom-right-radius: 10px;
@@ -411,6 +417,7 @@ cards:
               color: #222627;
               border-radius: 5px;
               padding: 5px;
+              border: solid #005f41 2px;
               }
           span {
               background: #EC4B34;
@@ -424,16 +431,16 @@ cards:
           tr:nth-child(n+2) > td:nth-child(2) {
             text-align: left;
               }
+#carte devoirs              
   - type: markdown
-#carte devoirs  
     content: |-
-      <div>Devoirs</div>
+      <div>📗 Devoirs</div>
       <table>
           <tbody>
               {% set items = state_attr('sensor.pronote_NOM_PRENOM_homework','homework') %}
               {%-for i in range(0, items | count, 1) -%}
               <tr>
-                  <td width='15%'>
+                  <td width='17%'>
                   {%- if items[i].done == true -%}
                       <mark>
                        {{items[i].date.strftime("%d/%m")}}</td>
@@ -477,6 +484,101 @@ cards:
               text-align: center;
                
           }
+          table{
+            border-collapse: collapse;
+            font-size: 0.7em;
+            font-family: Roboto;
+            width: auto;
+            outline: 0px solid #393c3d;
+            margin-top: 0px;
+          } caption {
+              text-align: center;
+              font-weight: bold;
+              font-size: 1em;
+          } td {
+              padding: 5px 8px 5px 8px;
+              text-align: left;
+              border-bottom: 0px solid #1c2020;
+          }
+          tr {
+              border-bottom: 0px solid #1c2020;
+          }
+
+          tr:nth-of-type(even) {
+              background-color: rgb(54, 54, 54, 0.3);
+          }
+          tr:last-of-type {
+              border-bottom: transparent;
+          }
+          mark {
+              background: #009767;
+              color: #222627;
+              border-radius: 5px;
+              padding: 5px;
+          }
+          span {
+              background: #EC4B34;
+              color: #222627;
+              border-radius: 5px;
+              padding: 5px;
+              border: solid #9c3324 2px;
+          }
+          span {
+              padding: 5px;
+          }
+          tr:nth-child(n+2) > td:nth-child(2) {
+            text-align: left;
+          }
+#carte informations          
+  - type: markdown
+    content: |-
+      <div>Informations college</div>
+      <table>
+          <tbody>
+              {% set items = state_attr('sensor.pronote_NOM_PRENOM_information_and_surveys','information_and_surveys') %}
+              {%-for i in range(0, items | count, 1) -%}
+              <tr> 
+                  <td><mark>{{items[i].author}}</mark><br>{{items[i].content}}</td>
+              </tr>
+              {% endfor %}
+        </tbody>
+      </table>
+    card_mod:
+      style:
+        .: |
+          ha-card ha-markdown {
+            padding:0px
+          }
+          ha-card ha-markdown.no-header {
+            padding:0px
+          }
+          ha-markdown {
+              max-height: 160px;
+              overflow-y: auto;
+              border-bottom-left-radius: 10px; 
+              border-bottom-right-radius: 10px;
+              border-top-left-radius: 10px; 
+              border-top-right-radius: 10px;
+            }
+        ha-markdown$: |
+          div {
+              background-color:rgb(54, 54, 54, 0.3);
+              padding: 5px 5px;
+              color:white;
+              font-weight:normal;
+              font-size:1em;
+              border-top-left-radius: 10px; 
+              text-align: center;
+               
+          }
+          mark {
+              background: #00BD81;
+              color: #222627;
+              border-radius: 5px;
+              padding: 5px;
+              border: solid #005f41 2px;
+              font-size: 1.2em;
+              }
           table{
             border-collapse: collapse;
             font-size: 0.7em;
