@@ -645,7 +645,7 @@ tabs:
         <table>
             <tbody>
             <div>Menus cantine</div>
-        {% set items = state_attr('sensor.pronote_roulet_nathan_menus','menus')
+        {% set items = state_attr('sensor.pronote_NOM_PRENOM_menus','menus')
         %} {% for i in range(0, items | count, 1) %}
           {% if items[i].is_lunch == True %}
           <tr>
@@ -745,7 +745,7 @@ tabs:
         <table>
             <tbody>
             <div>Menus cantine</div>
-        {% set items = state_attr('sensor.pronote_roulet_nathan_menus','menus')
+        {% set items = state_attr('sensor.pronote_NOM_PRENOM_menus','menus')
         %}
 
         {% for i in range(0, items | count, 1) %}
@@ -841,7 +841,7 @@ tabs:
         <table>
             <tbody>
             <div>Menus cantine</div>
-        {% set items = state_attr('sensor.pronote_roulet_nathan_menus','menus')
+        {% set items = state_attr('sensor.pronote_NOM_PRENOM_menus','menus')
         %}
 
         {% for i in range(0, items | count, 1) %}
@@ -941,7 +941,7 @@ tabs:
         <table>
             <tbody>
             <div>Menus cantine</div>
-        {% set items = state_attr('sensor.pronote_roulet_nathan_menus','menus')
+        {% set items = state_attr('sensor.pronote_NOM_PRENOM_menus','menus')
         %}
 
         {% for i in range(0, items | count, 1) %}
@@ -1037,7 +1037,7 @@ tabs:
         <table>
             <tbody>
             <div>Menus cantine</div>
-        {% set items = state_attr('sensor.pronote_roulet_nathan_menus','menus')
+        {% set items = state_attr('sensor.pronote_NOM_PRENOM_menus','menus')
         %} {% for i in range(0, items | count, 1) %}
           {% if items[i].is_lunch == True %}
           <tr>
