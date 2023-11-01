@@ -249,7 +249,7 @@ cards:
 #carte absences et sorties              
   - type: markdown
     content: |-
-      <div>❌ Absences et sorties exeptionelle</div> <table>
+      <div>❌ Absences et sorties exeptionelles</div> <table>
         {% set items=state_attr('sensor.pronote_NOM_PRENOM_absences','absences') %} {% for i in range(0, items | count, 1) %} 
         <tr> 
           {%- if items[i].justified == True -%} 
