@@ -7,7 +7,7 @@ cards:
     icon: mdi:update
     name: Derniere mise a jour pronote
     icon_color: green
-#carte emploi du temp du jour    
+ #carte emploi du temps
   - type: vertical-stack
     cards:
       - type: markdown
@@ -23,21 +23,21 @@ cards:
               <td width='12%'>
                 <mark>{{ items[i].start_time}}</mark>
               </td>  
-              <td>
+              <td width='12%'>
                 <mark>{{items[i].end_time }}</mark>
               </td>
               <td>{{ items[i].lesson }} {% else %}
-                <td>
+                <td width='12%'>
                   <del>{{ items[i].start_time }}</del>
                 </td> 
-                <td>
+                <td width='12%'>
                   <del>{{ items[i].end_time}}</del>
                 </td>
                 <td>
-                  <del>{{ items[i].lesson }}</del>&emsp;{%- endif -%}{% if items[i].status!= None %} 
+                  {{ items[i].lesson }} &emsp;{%- endif -%}{% if items[i].status!= None %} 
                   <br><span>{{ items[i].status }}</span>
                 </td> 
-                  {% endif %} <td>
+                  {% endif %} <td width='12%'>
                   <h1>{{items[i].classroom }}</h1>
                 </td> 
               </tr> {% endfor %} 
@@ -95,12 +95,19 @@ cards:
               tr:last-of-type {
                   border-bottom: transparent;          }
               mark {
-                  background: #00E199 ;
-                  color: #222627;
+                  background: transparent;
+                  color: white;
                   border-radius: 5px;
                   padding: 5px;
-                  border: solid #008d60 2px;
+                  border: solid grey 2px;
               }
+              del {
+                  background: transparent;
+                  color: red;
+                  border-radius: 5px;
+                  padding: 5px;
+                  border: solid red 2px;
+                  }
               h1 {
                   background: white;
                   color: black;
@@ -118,15 +125,16 @@ cards:
                   padding: 5px;
               }
               span {
-                  background: #EC4B34;
-                  color: #222627;
+                  background: transparent;
+                  color: red;
                   border-radius: 5px;
                   padding: 5px;
+                  fonty-size: 1em;
+                  border: solid red 2px;
               }
               tr:nth-child(n+2) > td:nth-child(2) {
                 text-align: left;
               }
-#carte emploi du temps du prochain jour              
       - type: markdown
         content: >-
           <div>{% set items =
@@ -140,21 +148,21 @@ cards:
               <td width='12%'>
                 <mark>{{ items[i].start_time}}</mark>
               </td>  
-              <td>
+              <td width='12%'>
                 <mark>{{items[i].end_time }}</mark>
               </td>
               <td>{{ items[i].lesson }} {% else %}
-                <td>
+                <td width='12%'>
                   <del>{{ items[i].start_time }}</del>
                 </td> 
-                <td>
+                <td width='12%'>
                   <del>{{ items[i].end_time}}</del>
                 </td>
                 <td>
-                  <del>{{ items[i].lesson }}</del>&emsp;{%- endif -%}{% if items[i].status!= None %} 
+                  {{ items[i].lesson }} &emsp;{%- endif -%}{% if items[i].status!= None %} 
                   <br><span>{{ items[i].status }}</span>
                 </td> 
-                  {% endif %} <td>
+                  {% endif %} <td width='12%'>
                   <h1>{{items[i].classroom }}</h1>
                 </td> 
               </tr> {% endfor %} 
@@ -212,22 +220,28 @@ cards:
               tr:last-of-type {
                   border-bottom: transparent;          }
               mark {
-                  background: #00E199 ;
-                  color: #222627;
+                  background: transparent;
+                  color: white;
                   border-radius: 5px;
                   padding: 5px;
-                  border: solid #008d60 2px;;
+                  border: solid grey 2px;
               }
+              del {
+                  background: transparent;
+                  color: red;
+                  border-radius: 5px;
+                  padding: 5px;
+                  border: solid red 2px;
+                  }
               h1 {
                   background: white;
                   color: black;
                   border-radius: 5px;
                   padding: 5px;
-                  font-size: 1em;
+                  font-size: 0.7em;
                   font-weight:normal;
-                  text-align: center;
-                  border: solid #999999 2px;
-                  
+                  text-align: center; 
+                  border: solid #E5E2E1 2px;
               }
               class {
                   background: #00E199;
@@ -236,33 +250,33 @@ cards:
                   padding: 5px;
               }
               span {
-                  background: #EC4B34;
-                  color: #222627;
+                  background: transparent;
+                  color: red;
                   border-radius: 5px;
                   padding: 5px;
                   fonty-size: 1em;
-                  border: solid #9c3324 2px;
+                  border: solid red 2px;
               }
               tr:nth-child(n+2) > td:nth-child(2) {
                 text-align: left;
               }
-#carte absences et sorties              
+#carte absences
   - type: markdown
     content: |-
       <div>❌ Absences et sorties exeptionelles</div> <table>
         {% set items=state_attr('sensor.pronote_NOM_PRENOM_absences','absences') %} {% for i in range(0, items | count, 1) %} 
         <tr> 
           {%- if items[i].justified == True -%} 
-          <td>
+          <td width='10%'>
             <mark>{{ items[i].from.strftime("%d/%m") }}</mark>
           </td> 
             {% else %} 
-          <td>
+          <td width='10%'>
             <span>{{ items[i].from.strftime("%d/%m") }} {%-endif-%}</span> 
-          <td>
+          <td width='10%'>
             <h1>{{ items[i].hours }}</h1>
           </td>
-          <td>{{ items[i].reason }} {% endfor %}</td>
+          <td width='70%'>{{ items[i].reason }} {% endfor %}</td>
         </tr>
       </table>
     card_mod:
@@ -275,7 +289,7 @@ cards:
             padding:0px;
           }
           ha-markdown {
-              max-height: 160px;
+              max-height: 190px;
               overflow-y: auto;
               border-bottom-left-radius: 10px; 
               border-bottom-right-radius: 10px;
@@ -319,21 +333,21 @@ cards:
               border-bottom: transparent;
           }
           mark {
-              background: #00BD81;
-              color: #222627;
+              background:transparent;
+              color: white;
               border-radius: 5px;
               padding: 5px;
-              border: solid #005f41 2px;
+              border: solid grey 2px;
           }
           h1 {
-              background: #00E199;
-              color: #222627;
+              background: transparent;
+              color: white;
               border-radius: 5px;
               padding: 5px;
               font-size: 0.9em;
               font-weight: normal;
               text-align: center;
-              border: solid #008d60 2px;
+              border: solid grey 2px;
           }
           span {
               background: #EC4B34;
@@ -346,22 +360,29 @@ cards:
           }
 #carte evaluations          
   - type: markdown
-    content: >-
-      <div>📝 Evaluations</div> <table> {% set items =
-      state_attr('sensor.pronote_NOM_PRENOM_evaluations','evaluations')%}  {%
-      for i in range(0, items | count, 1) %} <tr> <td width='20%'><mark> {{
-      items[i].date.strftime("%d/%m") }} </td> <td width='60%'> {{
-      items[i].subject }} </td> <td width='20%'>
-
-      {% set acquisitions = items[i].acquisitions %}
-
-      {% for j in range(0,acquisitions|count,1) %}{% if acquisitions[j].level ==
-      'Très bonne maîtrise' %}✅ {% elif acquisitions[j].level == 'Maîtrise
-      satisfaisante' %}🟩{% elif acquisitions[j].level == 'Maîtrise fragile' 
-      %}🟧{% elif acquisitions[j].level == 'Maîtrise insuffisante'  %}🟥{% else
-      %}?{% endif %}{% endfor %}
-
-      </td> </tr> {% endfor %}  </table>
+    content: |-
+      <div>
+        📝 Evaluations
+      </div> 
+      <table>
+        {% set items = state_attr('sensor.pronote_NOM_PRENOM_evaluations','evaluations')%}  {% for i in range(0, items | count, 1) %} 
+        <tr> 
+          <td width='20%'>
+            <mark> {{ items[i].date.strftime("%d/%m") }} 
+          </td> 
+          <td width='40%'> {{ items[i].subject }} 
+          </td> 
+          <td width='20%'>
+            {% set acquisitions = items[i].acquisitions %}{% for j in range(0,acquisitions|count,1) %}{% if acquisitions[j].level == 'Très bonne maîtrise' %}✅ {% elif acquisitions[j].level == 'Maîtrise satisfaisante' %}🟩{% elif acquisitions[j].level == 'Maîtrise fragile'  %}🟧{% elif acquisitions[j].level == 'Maîtrise insuffisante'  %}🟥{% else %}?{% endif %}{% endfor %}
+          </td>
+          <td width='20%'>
+            <h1>
+              {{items[i].name}}
+            </h1>
+          </td> 
+        </tr> 
+        {% endfor %}
+      </table>
     card_mod:
       style:
         .: |
@@ -372,7 +393,7 @@ cards:
             padding:0px
           }
           ha-markdown {
-              max-height: 165px;
+              max-height: 190px;
               overflow-y: auto;
               border-bottom-left-radius: 10px; 
               border-bottom-right-radius: 10px;
@@ -412,12 +433,15 @@ cards:
           tr:last-of-type {
               border-bottom: transparent;
               }
+            h1{
+              font-size: 1em;
+              }
           mark {
-              background: #009767;
-              color: #222627;
+              background: transparent;
+              color: white;
               border-radius: 5px;
               padding: 5px;
-              border: solid #005f41 2px;
+              border: solid grey 2px;
               }
           span {
               background: #EC4B34;
@@ -511,14 +535,15 @@ cards:
               border-bottom: transparent;
           }
           mark {
-              background: #009767;
-              color: #222627;
+              background: transparent;
+              color: white;
               border-radius: 5px;
               padding: 5px;
+              border: solid #005f41 2px;
           }
           span {
-              background: #EC4B34;
-              color: #222627;
+              background: transparent;
+              color: white;
               border-radius: 5px;
               padding: 5px;
               border: solid #9c3324 2px;
@@ -532,13 +557,14 @@ cards:
 #carte informations          
   - type: markdown
     content: |-
-      <div>Informations college</div>
+      <div>🗞️Informations et sondages college</div>
       <table>
           <tbody>
               {% set items = state_attr('sensor.pronote_NOM_PRENOM_information_and_surveys','information_and_surveys') %}
               {%-for i in range(0, items | count, 1) -%}
               <tr> 
-                  <td><mark>{{items[i].author}}</mark><br>{{items[i].content}}</td>
+                  <td><h2>{{items[i].author}} : {{items[i].category}}</h2>
+                  {{items[i].content}}</td>
               </tr>
               {% endfor %}
         </tbody>
@@ -553,7 +579,7 @@ cards:
             padding:0px
           }
           ha-markdown {
-              max-height: 160px;
+              max-height: 190px;
               overflow-y: auto;
               border-bottom-left-radius: 10px; 
               border-bottom-right-radius: 10px;
@@ -572,16 +598,24 @@ cards:
                
           }
           mark {
-              background: #00BD81;
-              color: #222627;
+              background: transparent;
+              color: white;
               border-radius: 5px;
               padding: 5px;
               border: solid #005f41 2px;
               font-size: 1.2em;
               }
+          h2 {
+              background: #2471A3;
+              color: white;
+              border-radius: 5px;
+              padding: 5px;
+              border: solid #A9CCE3 2px;
+              font-size: 1.2em;
+              }
           table{
             border-collapse: collapse;
-            font-size: 0.7em;
+            font-size: 0.85em;
             font-family: Roboto;
             width: auto;
             outline: 0px solid #393c3d;
@@ -623,503 +657,505 @@ cards:
           tr:nth-child(n+2) > td:nth-child(2) {
             text-align: left;
           }
-#carte menu
-  type: custom:tabbed-card
-title: menu cantine nathan
-styles:
-  '--mdc-typography-button-font-size': 10px
-  '--mdc-theme-primary': white
-  '--mdc-tab-text-label-color-default': grey
-  background: rgb(54, 54, 54, 0.3)
-  border: solid 0.3px grey
-  border-top-left-radius: 10px
-  border-top-right-radius: 10px
-  border-bottom-left-radius: 10px
-  border-bottom-right-radius: 10px
-tabs:
-  - attributes:
-      label: 🥗Entrées
-    card:
-      type: markdown
-      content: >-
-        <table>
-            <tbody>
-            <div>Menus cantine</div>
-        {% set items = state_attr('sensor.pronote_NOM_PRENOM_menus','menus')
-        %} {% for i in range(0, items | count, 1) %}
-          {% if items[i].is_lunch == True %}
-          <tr>
-          <td width='11%'>      
-          <mark>  
-          {{ items[i].date | as_datetime | as_timestamp | timestamp_custom('%d/%m') }}
-          </mark>
-          </td>
-          <td width='80%'> 
-            {% for entry in items[i].first_meal %}
-             {{ entry.name }}
+#carte menus          
+  - type: custom:tabbed-card
+    title: menu cantine
+    styles:
+      '--mdc-typography-button-font-size': 10px
+      '--mdc-theme-primary': white
+      '--mdc-tab-text-label-color-default': grey
+      background: rgb(54, 54, 54, 0.3)
+      border: solid 0.3px grey
+      border-top-left-radius: 10px
+      border-top-right-radius: 10px
+      border-bottom-left-radius: 10px
+      border-bottom-right-radius: 10px
+    tabs:
+      - attributes:
+          label: 🥗Entrées
+        card:
+          type: markdown
+          content: >-
+            <table>
+                <tbody>
+                <div>Menus cantine</div>
+            {% set items =
+            state_attr('sensor.pronote_NOM_PRENOM_menus','menus') %} {% for i
+            in range(0, items | count, 1) %}
+              {% if items[i].is_lunch == True %}
+              <tr>
+              <td width='11%'>      
+              <mark>  
+              {{ items[i].date | as_datetime | as_timestamp | timestamp_custom('%d/%m') }}
+              </mark>
+              </td>
+              <td width='80%'> 
+                {% for entry in items[i].first_meal %}
+                 {{ entry.name }}
+                {% endfor %}
+              </td>
+              </td>
+                {% endif %}
             {% endfor %}
-          </td>
-          </td>
-            {% endif %}
-        {% endfor %}
-          </tbody>
-        </table>
-      card_mod:
-        style:
-          .: |
-            ha-card ha-markdown {
-              padding:0px
-            }
-            ha-card ha-markdown.no-header {
-              padding:0px
-            }
-             ha-markdown {
-                max-height: 190px;
-                overflow-y: auto;
-                border-top-left-radius:10px;
-                border-top-right-radius:10px;
-                border-bottom-left-radius:10px;
-                border-bottom-right-radius:10px;
-              }
-          ha-markdown$: |
-            div {
-                background-color:rgb(54, 54, 54, 0.3);
-                padding: 5px 5px;
-                color:white;
-                font-weight:normal;
-                font-size:1em;
-                border-top-left-radius: 10px; 
-                border-top-right-radius: 10px;
-                text-align: center;
-            }table{
-              border-collapse: collapse;
-              font-family: Roboto;
-              width: 100%;
-              outline: 0px solid #393c3d;
-              margin-top: 0px;
-              text-align: center;
-            } caption {
-                text-align: center;
-                font-weight: bold;
-                font-size: 1em;
-            } td {
-                padding: 5px 8px 5px 8px;
-                text-align: center;
-                border-bottom: 0px solid #1c2020;
-                margin-top: 0px;
-                font-size: 0.9em;
-            }
-            tr {
-                border-bottom: 0px solid #1c2020;
-            }
-
-            tr:nth-of-type(even) {
-                background-color: rgb(54, 54, 54, 0.3);
-            }
-            tr:last-of-type {
-                border-bottom: transparent; 
-            }
-            mark {
-                  background: #009767;
-                  color: #222627;
-                  border-radius: 5px;
-                  padding: 5px;
-                  border: solid #005f41 2px;
-                  font-weight: normal;
-                  font-size: 0.8em;
+              </tbody>
+            </table>
+          card_mod:
+            style:
+              .: |
+                ha-card ha-markdown {
+                  padding:0px
+                }
+                ha-card ha-markdown.no-header {
+                  padding:0px
+                }
+                 ha-markdown {
+                    max-height: 190px;
+                    overflow-y: auto;
+                    border-top-left-radius:10px;
+                    border-top-right-radius:10px;
+                    border-bottom-left-radius:10px;
+                    border-bottom-right-radius:10px;
                   }
-            span {
-                background: #EC4B34;
-                color: #222627;
-                border-radius: 5px;
-                padding: 5px;
-            }
-            tr:nth-child(n+2) > td:nth-child(2) {
-              text-align: center;
-            }
-  - attributes:
-      label: 🍖Plats principal
-    card:
-      type: markdown
-      content: >-
-        <table>
-            <tbody>
-            <div>Menus cantine</div>
-        {% set items = state_attr('sensor.pronote_NOM_PRENOM_menus','menus')
-        %}
+              ha-markdown$: |
+                div {
+                    background-color:rgb(54, 54, 54, 0.3);
+                    padding: 5px 5px;
+                    color:white;
+                    font-weight:normal;
+                    font-size:1em;
+                    border-top-left-radius: 10px; 
+                    border-top-right-radius: 10px;
+                    text-align: center;
+                }table{
+                  border-collapse: collapse;
+                  font-family: Roboto;
+                  width: 100%;
+                  outline: 0px solid #393c3d;
+                  margin-top: 0px;
+                  text-align: center;
+                } caption {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 1em;
+                } td {
+                    padding: 5px 8px 5px 8px;
+                    text-align: center;
+                    border-bottom: 0px solid #1c2020;
+                    margin-top: 0px;
+                    font-size: 0.9em;
+                }
+                tr {
+                    border-bottom: 0px solid #1c2020;
+                }
 
-        {% for i in range(0, items | count, 1) %}
-          {% if items[i].is_lunch == True %}
-          <tr>
-          <td width='11%'>      
-          <mark>  
-          {{ items[i].date | as_datetime | as_timestamp | timestamp_custom('%d/%m') }}
-          </mark>
-          </td>
-          <td width='80%'> 
-            {% for main in items[i].main_meal %}
-              {{ main.name }}
+                tr:nth-of-type(even) {
+                    background-color: rgb(54, 54, 54, 0.3);
+                }
+                tr:last-of-type {
+                    border-bottom: transparent; 
+                }
+                mark {
+                      background: transparent;
+                      color: white;
+                      border-radius: 5px;
+                      padding: 5px;
+                      border: solid grey 2px;
+                      font-weight: normal;
+                      font-size: 0.8em;
+                      }
+                span {
+                    background: transparent;
+                    color: white;
+                    border-radius: 5px;
+                    padding: 5px;
+                }
+                tr:nth-child(n+2) > td:nth-child(2) {
+                  text-align: center;
+                }
+      - attributes:
+          label: 🍖Plats principal
+        card:
+          type: markdown
+          content: >-
+            <table>
+                <tbody>
+                <div>Menus cantine</div>
+            {% set items =
+            state_attr('sensor.pronote_NOM_PRENOM_menus','menus') %}
+
+            {% for i in range(0, items | count, 1) %}
+              {% if items[i].is_lunch == True %}
+              <tr>
+              <td width='11%'>      
+              <mark>  
+              {{ items[i].date | as_datetime | as_timestamp | timestamp_custom('%d/%m') }}
+              </mark>
+              </td>
+              <td width='80%'> 
+                {% for main in items[i].main_meal %}
+                  {{ main.name }}
+                {% endfor %}
+              </td>
+                {% endif %}
             {% endfor %}
-          </td>
-            {% endif %}
-        {% endfor %}
-          </tbody>
-        </table>
-      card_mod:
-        style:
-          .: |
-            ha-card ha-markdown {
-              padding:0px
-            }
-            ha-card ha-markdown.no-header {
-              padding:0px
-            }
-             ha-markdown {
-                max-height: 190px;
-                overflow-y: auto;
-              }
-          ha-markdown$: |
-            div {
-                background-color:rgb(54, 54, 54, 0.3);
-                padding: 5px 5px;
-                color:white;
-                font-weight:normal;
-                font-size:1em;
-                border-top-left-radius: 10px; 
-                border-top-right-radius: 10px;
-                text-align: center;
-            }
-            table{
-              border-collapse: collapse;
-              font-family: Roboto;
-              width: 100%;
-              outline: 0px solid #393c3d;
-              margin-top: 5px;
-            } caption {
-                text-align: center;
-                font-weight: bold;
-                font-size: 1em;
-            } td {
-                padding: 5px 8px 5px 8px;
-                text-align: center;
-                border-bottom: 0px solid #1c2020;
-                margin-top: 5px;
-                font-size: 0.9em;
-            }
-            tr {
-                border-bottom: 0px solid #1c2020;
-            }
-
-            tr:nth-of-type(even) {
-                background-color: rgb(54, 54, 54, 0.3);
-            }
-            tr:last-of-type {
-                border-bottom: transparent;          }
-            mark {
-                  background: #009767;
-                  color: #222627;
-                  border-radius: 5px;
-                  padding: 5px;
-                  border: solid #005f41 2px;
-                  font-size: 0.8em;
-                  font-weight: normal;
+              </tbody>
+            </table>
+          card_mod:
+            style:
+              .: |
+                ha-card ha-markdown {
+                  padding:0px
+                }
+                ha-card ha-markdown.no-header {
+                  padding:0px
+                }
+                 ha-markdown {
+                    max-height: 190px;
+                    overflow-y: auto;
                   }
-            span {
-                background: #EC4B34;
-                color: #222627;
-                border-radius: 5px;
-                padding: 5px;
-            }
-            tr:nth-child(n+2) > td:nth-child(2) {
-              text-align: center;
-            }
-  - attributes:
-      label: 🍟Accompagnements
-    card:
-      type: markdown
-      content: >-
-        <table>
-            <tbody>
-            <div>Menus cantine</div>
-        {% set items = state_attr('sensor.pronote_NOM_PRENOM_menus','menus')
-        %}
+              ha-markdown$: |
+                div {
+                    background-color:rgb(54, 54, 54, 0.3);
+                    padding: 5px 5px;
+                    color:white;
+                    font-weight:normal;
+                    font-size:1em;
+                    border-top-left-radius: 10px; 
+                    border-top-right-radius: 10px;
+                    text-align: center;
+                }
+                table{
+                  border-collapse: collapse;
+                  font-family: Roboto;
+                  width: 100%;
+                  outline: 0px solid #393c3d;
+                  margin-top: 5px;
+                } caption {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 1em;
+                } td {
+                    padding: 5px 8px 5px 8px;
+                    text-align: center;
+                    border-bottom: 0px solid #1c2020;
+                    margin-top: 5px;
+                    font-size: 0.9em;
+                }
+                tr {
+                    border-bottom: 0px solid #1c2020;
+                }
 
-        {% for i in range(0, items | count, 1) %}
-          {% if items[i].is_lunch == True %}
-          <tr>
-          <td width='11%'>      
-          <mark>  
-          {{ items[i].date | as_datetime | as_timestamp | timestamp_custom('%d/%m') }}
-          </mark>
-          </td>
-          <td width='80%'>
-            {% if items[i].side_meal %}
-              {% for side in items[i].side_meal %}
-                {{ side.name }}
-              {% endfor %}
-            {% else %}
-              PAS_DISPO
-            {% endif %}
-          </td>
-            {% endif %}
-        {% endfor %}
-          </tbody>
-        </table>
-      card_mod:
-        style:
-          .: |
-            ha-card ha-markdown {
-              padding:0px
-            }
-            ha-card ha-markdown.no-header {
-              padding:0px
-            }
-             ha-markdown {
-                max-height: 190px;
-                overflow-y: auto;
-              }
-          ha-markdown$: |
-            div {
-                background-color:rgb(54, 54, 54, 0.3);
-                padding: 5px 5px;
-                color:white;
-                font-weight:normal;
-                font-size:1em;
-                border-top-left-radius: 10px; 
-                border-top-right-radius: 10px;
-                text-align: center;
-            }
-            table{
-              border-collapse: collapse;
-              font-family: Roboto;
-              width: 100%;
-              outline: 0px solid #393c3d;
-              margin-top: 5px;
-            } caption {
-                text-align: center;
-                font-weight: bold;
-                font-size: 1em;
-            } td {
-                padding: 5px 8px 5px 8px;
-                text-align: center;
-                border-bottom: 0px solid #1c2020;
-                margin-top: 5px;
-                font-size: 0.9em;
-            }
-            tr {
-                border-bottom: 0px solid #1c2020;
-            }
+                tr:nth-of-type(even) {
+                    background-color: rgb(54, 54, 54, 0.3);
+                }
+                tr:last-of-type {
+                    border-bottom: transparent;          }
+                mark {
+                      background: transparent;
+                      color: white;
+                      border-radius: 5px;
+                      padding: 5px;
+                      border: solid grey 2px;
+                      font-size: 0.8em;
+                      font-weight: normal;
+                      }
+                span {
+                    background: #EC4B34;
+                    color: #222627;
+                    border-radius: 5px;
+                    padding: 5px;
+                }
+                tr:nth-child(n+2) > td:nth-child(2) {
+                  text-align: center;
+                }
+      - attributes:
+          label: 🍟Accompagnements
+        card:
+          type: markdown
+          content: >-
+            <table>
+                <tbody>
+                <div>Menus cantine</div>
+            {% set items =
+            state_attr('sensor.pronote_NOM_PRENOM_menus','menus') %}
 
-            tr:nth-of-type(even) {
-                background-color: rgb(54, 54, 54, 0.3);
-            }
-            tr:last-of-type {
-                border-bottom: transparent;          }
-            mark {
-                  background: #009767;
-                  color: #222627;
-                  border-radius: 5px;
-                  padding: 5px;
-                  border: solid #005f41 2px;
-                  font-size: 0.8em;
-                  font-weight: normal;
-                  }
-            span {
-                background: #EC4B34;
-                color: #222627;
-                border-radius: 5px;
-                padding: 5px;
-            }
-            tr:nth-child(n+2) > td:nth-child(2) {
-              text-align: center;
-            }
-  - attributes:
-      label: 🧀Fromages
-    card:
-      type: markdown
-      content: >-
-        <table>
-            <tbody>
-            <div>Menus cantine</div>
-        {% set items = state_attr('sensor.pronote_NOM_PRENOM_menus','menus')
-        %}
-
-        {% for i in range(0, items | count, 1) %}
-          {% if items[i].is_lunch == True %}
-          <tr>
-          <td width='11%'>      
-          <mark>  
-          {{ items[i].date | as_datetime | as_timestamp | timestamp_custom('%d/%m') }}
-          </mark>
-          </td>
-          <td width='80%'>
-            {% for cheese in items[i].cheese %}
-              {{ cheese.name }}
+            {% for i in range(0, items | count, 1) %}
+              {% if items[i].is_lunch == True %}
+              <tr>
+              <td width='11%'>      
+              <mark>  
+              {{ items[i].date | as_datetime | as_timestamp | timestamp_custom('%d/%m') }}
+              </mark>
+              </td>
+              <td width='80%'>
+                {% if items[i].side_meal %}
+                  {% for side in items[i].side_meal %}
+                    {{ side.name }}
+                  {% endfor %}
+                {% else %}
+                  PAS_DISPO
+                {% endif %}
+              </td>
+                {% endif %}
             {% endfor %}
-          </td>
-            {% endif %}
-        {% endfor %}
-          </tbody>
-        </table>
-      card_mod:
-        style:
-          .: |
-            ha-card ha-markdown {
-              padding:0px
-            }
-            ha-card ha-markdown.no-header {
-              padding:0px
-            }
-             ha-markdown {
-                max-height: 190px;
-                overflow-y: auto;
-              }
-          ha-markdown$: |
-            div {
-                background-color:rgb(54, 54, 54, 0.3);
-                padding: 5px 5px;
-                color:white;
-                font-weight:normal;
-                font-size:1em;
-                border-top-left-radius: 10px; 
-                border-top-right-radius: 10px;
-                text-align: center;
-            }
-            table{
-              border-collapse: collapse;
-              font-family: Roboto;
-              width: 100%;
-              outline: 0px solid #393c3d;
-              margin-top: 5px;
-            } caption {
-                text-align: center;
-                font-weight: bold;
-                font-size: 1em;
-            } td {
-                padding: 5px 8px 5px 8px;
-                text-align: center;
-                border-bottom: 0px solid #1c2020;
-                margin-top: 5px;
-                font-size: 0.9em;
-            }
-            tr {
-                border-bottom: 0px solid #1c2020;
-            }
-
-            tr:nth-of-type(even) {
-                background-color: rgb(54, 54, 54, 0.3);
-            }
-            tr:last-of-type {
-                border-bottom: transparent;          }
-            mark {
-                  background: #009767;
-                  color: #222627;
-                  border-radius: 5px;
-                  padding: 5px;
-                  border: solid #005f41 2px;
-                  font-size: 0.8em;
-                  font-weight: normal;
+              </tbody>
+            </table>
+          card_mod:
+            style:
+              .: |
+                ha-card ha-markdown {
+                  padding:0px
+                }
+                ha-card ha-markdown.no-header {
+                  padding:0px
+                }
+                 ha-markdown {
+                    max-height: 190px;
+                    overflow-y: auto;
                   }
-            span {
-                background: #EC4B34;
-                color: #222627;
-                border-radius: 5px;
-                padding: 5px;
-            }
-            tr:nth-child(n+2) > td:nth-child(2) {
-              text-align: center;
-            }
-  - attributes:
-      label: 🍦Desserts
-    card:
-      type: markdown
-      content: >-
-        <table>
-            <tbody>
-            <div>Menus cantine</div>
-        {% set items = state_attr('sensor.pronote_NOM_PRENOM_menus','menus')
-        %} {% for i in range(0, items | count, 1) %}
-          {% if items[i].is_lunch == True %}
-          <tr>
-          <td width='11%'>      
-          <mark>  
-          {{ items[i].date | as_datetime | as_timestamp | timestamp_custom('%d/%m') }}
-          </mark>
-          </td>
-          <td width='80%'>
-            {% for dessert in items[i].dessert %}
-              {{ dessert.name }}
+              ha-markdown$: |
+                div {
+                    background-color:rgb(54, 54, 54, 0.3);
+                    padding: 5px 5px;
+                    color:white;
+                    font-weight:normal;
+                    font-size:1em;
+                    border-top-left-radius: 10px; 
+                    border-top-right-radius: 10px;
+                    text-align: center;
+                }
+                table{
+                  border-collapse: collapse;
+                  font-family: Roboto;
+                  width: 100%;
+                  outline: 0px solid #393c3d;
+                  margin-top: 5px;
+                } caption {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 1em;
+                } td {
+                    padding: 5px 8px 5px 8px;
+                    text-align: center;
+                    border-bottom: 0px solid #1c2020;
+                    margin-top: 5px;
+                    font-size: 0.9em;
+                }
+                tr {
+                    border-bottom: 0px solid #1c2020;
+                }
+
+                tr:nth-of-type(even) {
+                    background-color: rgb(54, 54, 54, 0.3);
+                }
+                tr:last-of-type {
+                    border-bottom: transparent;          }
+                mark {
+                      background: transparent;
+                      color: white;
+                      border-radius: 5px;
+                      padding: 5px;
+                      border: solid grey 2px;
+                      font-size: 0.8em;
+                      font-weight: normal;
+                      }
+                span {
+                    background: #EC4B34;
+                    color: #222627;
+                    border-radius: 5px;
+                    padding: 5px;
+                }
+                tr:nth-child(n+2) > td:nth-child(2) {
+                  text-align: center;
+                }
+      - attributes:
+          label: 🧀Fromages
+        card:
+          type: markdown
+          content: >-
+            <table>
+                <tbody>
+                <div>Menus cantine</div>
+            {% set items =
+            state_attr('sensor.pronote_NOM_PRENOM_menus','menus') %}
+
+            {% for i in range(0, items | count, 1) %}
+              {% if items[i].is_lunch == True %}
+              <tr>
+              <td width='11%'>      
+              <mark>  
+              {{ items[i].date | as_datetime | as_timestamp | timestamp_custom('%d/%m') }}
+              </mark>
+              </td>
+              <td width='80%'>
+                {% for cheese in items[i].cheese %}
+                  {{ cheese.name }}
+                {% endfor %}
+              </td>
+                {% endif %}
             {% endfor %}
-          </td>
-            {% endif %}
-        {% endfor %}
-          </tbody>
-        </table>
-      card_mod:
-        style:
-          .: |
-            ha-card ha-markdown {
-              padding:0px
-            }
-            ha-card ha-markdown.no-header {
-              padding:0px
-            }
-             ha-markdown {
-                max-height: 190px;
-                overflow-y: auto;
-              }
-          ha-markdown$: |
-            div {
-                background-color:rgb(54, 54, 54, 0.3);
-                padding: 5px 5px;
-                color:white;
-                font-weight:normal;
-                font-size:1em;
-                border-top-left-radius: 10px; 
-                border-top-right-radius: 10px;
-                text-align: center;
-            }
-            table{
-              border-collapse: collapse;
-              font-family: Roboto;
-              width: 100%;
-              outline: 0px solid #393c3d;
-              margin-top: 5px;
-            } caption {
-                text-align: center;
-                font-weight: bold;
-                font-size: 1em;
-            } td {
-                padding: 5px 8px 5px 8px;
-                text-align: center;
-                border-bottom: 0px solid #1c2020;
-                margin-top: 5px;
-                font-size: 0.9em;
-            }
-            tr {
-                border-bottom: 0px solid #1c2020;
-            }
-
-            tr:nth-of-type(even) {
-                background-color: rgb(54, 54, 54, 0.3);
-            }
-            tr:last-of-type {
-                border-bottom: transparent;          }
-            mark {
-                  background: #009767;
-                  color: #222627;
-                  border-radius: 5px;
-                  padding: 5px;
-                  border: solid #005f41 2px;
-                  font-size: 0.8em;
-                  font-weight: normal;
+              </tbody>
+            </table>
+          card_mod:
+            style:
+              .: |
+                ha-card ha-markdown {
+                  padding:0px
+                }
+                ha-card ha-markdown.no-header {
+                  padding:0px
+                }
+                 ha-markdown {
+                    max-height: 190px;
+                    overflow-y: auto;
                   }
-            span {
-                background: #EC4B34;
-                color: #222627;
-                border-radius: 5px;
-                padding: 5px;
-            }
-            tr:nth-child(n+2) > td:nth-child(2) {
-              text-align: center;
-            }
+              ha-markdown$: |
+                div {
+                    background-color:rgb(54, 54, 54, 0.3);
+                    padding: 5px 5px;
+                    color:white;
+                    font-weight:normal;
+                    font-size:1em;
+                    border-top-left-radius: 10px; 
+                    border-top-right-radius: 10px;
+                    text-align: center;
+                }
+                table{
+                  border-collapse: collapse;
+                  font-family: Roboto;
+                  width: 100%;
+                  outline: 0px solid #393c3d;
+                  margin-top: 5px;
+                } caption {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 1em;
+                } td {
+                    padding: 5px 8px 5px 8px;
+                    text-align: center;
+                    border-bottom: 0px solid #1c2020;
+                    margin-top: 5px;
+                    font-size: 0.9em;
+                }
+                tr {
+                    border-bottom: 0px solid #1c2020;
+                }
+
+                tr:nth-of-type(even) {
+                    background-color: rgb(54, 54, 54, 0.3);
+                }
+                tr:last-of-type {
+                    border-bottom: transparent;          }
+                mark {
+                      background: transparent;
+                      color: white;
+                      border-radius: 5px;
+                      padding: 5px;
+                      border: solid grey 2px;
+                      font-size: 0.8em;
+                      font-weight: normal;
+                      }
+                span {
+                    background: #EC4B34;
+                    color: #222627;
+                    border-radius: 5px;
+                    padding: 5px;
+                }
+                tr:nth-child(n+2) > td:nth-child(2) {
+                  text-align: center;
+                }
+      - attributes:
+          label: 🍦Desserts
+        card:
+          type: markdown
+          content: >-
+            <table>
+                <tbody>
+                <div>Menus cantine</div>
+            {% set items =
+            state_attr('sensor.pronote_NOM_PRENOM_menus','menus') %} {% for i
+            in range(0, items | count, 1) %}
+              {% if items[i].is_lunch == True %}
+              <tr>
+              <td width='11%'>      
+              <mark>  
+              {{ items[i].date | as_datetime | as_timestamp | timestamp_custom('%d/%m') }}
+              </mark>
+              </td>
+              <td width='80%'>
+                {% for dessert in items[i].dessert %}
+                  {{ dessert.name }}
+                {% endfor %}
+              </td>
+                {% endif %}
+            {% endfor %}
+              </tbody>
+            </table>
+          card_mod:
+            style:
+              .: |
+                ha-card ha-markdown {
+                  padding:0px
+                }
+                ha-card ha-markdown.no-header {
+                  padding:0px
+                }
+                 ha-markdown {
+                    max-height: 190px;
+                    overflow-y: auto;
+                  }
+              ha-markdown$: |
+                div {
+                    background-color:rgb(54, 54, 54, 0.3);
+                    padding: 5px 5px;
+                    color:white;
+                    font-weight:normal;
+                    font-size:1em;
+                    border-top-left-radius: 10px; 
+                    border-top-right-radius: 10px;
+                    text-align: center;
+                }
+                table{
+                  border-collapse: collapse;
+                  font-family: Roboto;
+                  width: 100%;
+                  outline: 0px solid #393c3d;
+                  margin-top: 5px;
+                } caption {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 1em;
+                } td {
+                    padding: 5px 8px 5px 8px;
+                    text-align: center;
+                    border-bottom: 0px solid #1c2020;
+                    margin-top: 5px;
+                    font-size: 0.9em;
+                }
+                tr {
+                    border-bottom: 0px solid #1c2020;
+                }
+
+                tr:nth-of-type(even) {
+                    background-color: rgb(54, 54, 54, 0.3);
+                }
+                tr:last-of-type {
+                    border-bottom: transparent;          }
+                mark {
+                      background: transparent;
+                      color: white;
+                      border-radius: 5px;
+                      padding: 5px;
+                      border: solid grey 2px;
+                      font-size: 0.8em;
+                      font-weight: normal;
+                      }
+                span {
+                    background: #EC4B34;
+                    color: #222627;
+                    border-radius: 5px;
+                    padding: 5px;
+                }
+                tr:nth-child(n+2) > td:nth-child(2) {
+                  text-align: center;
+                }
