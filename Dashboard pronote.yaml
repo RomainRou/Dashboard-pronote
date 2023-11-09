@@ -350,10 +350,11 @@ cards:
               border: solid grey 2px;
           }
           span {
-              background: #EC4B34;
-              color: #222627;
+              background: transparent;
+              color: red;
               border-radius: 5px;
               padding: 5px;
+              border: solid red 2px;
           }
           tr:nth-child(n+2) > td:nth-child(2) {
             text-align: left;
