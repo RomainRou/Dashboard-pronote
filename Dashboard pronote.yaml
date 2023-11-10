@@ -57,7 +57,6 @@ cards:
                   border-bottom-left-radius: 10px; 
                   border-bottom-right-radius: 10px;
                   border-top-left-radius: 10px; 
-                  border-top-right-radius: 10px;
                 }
             ha-markdown$: |
               div {
@@ -182,7 +181,6 @@ cards:
                   border-bottom-left-radius: 10px; 
                   border-bottom-right-radius: 10px;
                   border-top-left-radius: 10px; 
-                  border-top-right-radius: 10px;
                 }
             ha-markdown$: |
               div {
@@ -399,7 +397,6 @@ cards:
               border-bottom-left-radius: 10px; 
               border-bottom-right-radius: 10px;
               border-top-left-radius: 10px; 
-              border-top-right-radius: 10px;
           }
         ha-markdown$: |
           div{
@@ -496,7 +493,6 @@ cards:
               border-bottom-left-radius: 10px; 
               border-bottom-right-radius: 10px;
               border-top-left-radius: 10px; 
-              border-top-right-radius: 10px;
             }
         ha-markdown$: |
           div {
@@ -585,7 +581,6 @@ cards:
               border-bottom-left-radius: 10px; 
               border-bottom-right-radius: 10px;
               border-top-left-radius: 10px; 
-              border-top-right-radius: 10px;
             }
         ha-markdown$: |
           div {
@@ -725,7 +720,6 @@ cards:
                     font-weight:normal;
                     font-size:1em;
                     border-top-left-radius: 10px; 
-                    border-top-right-radius: 10px;
                     text-align: center;
                 }table{
                   border-collapse: collapse;
@@ -822,7 +816,6 @@ cards:
                     font-weight:normal;
                     font-size:1em;
                     border-top-left-radius: 10px; 
-                    border-top-right-radius: 10px;
                     text-align: center;
                 }
                 table{
@@ -922,7 +915,6 @@ cards:
                     font-weight:normal;
                     font-size:1em;
                     border-top-left-radius: 10px; 
-                    border-top-right-radius: 10px;
                     text-align: center;
                 }
                 table{
@@ -1018,7 +1010,6 @@ cards:
                     font-weight:normal;
                     font-size:1em;
                     border-top-left-radius: 10px; 
-                    border-top-right-radius: 10px;
                     text-align: center;
                 }
                 table{
@@ -1113,7 +1104,6 @@ cards:
                     font-weight:normal;
                     font-size:1em;
                     border-top-left-radius: 10px; 
-                    border-top-right-radius: 10px;
                     text-align: center;
                 }
                 table{
