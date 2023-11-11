@@ -52,7 +52,7 @@ cards:
                 padding:0px
               }
               ha-markdown {
-                  max-height: 190px;
+                  max-height: 205px;
                   overflow-y: auto;
                   border-bottom-left-radius: 10px; 
                   border-bottom-right-radius: 10px;
@@ -176,7 +176,7 @@ cards:
                 padding:0px
               }
               ha-markdown {
-                  max-height: 190px;
+                  max-height: 205px;
                   overflow-y: auto;
                   border-bottom-left-radius: 10px; 
                   border-bottom-right-radius: 10px;
@@ -287,12 +287,11 @@ cards:
             padding:0px;
           }
           ha-markdown {
-              max-height: 190px;
+              max-height: 205px;
               overflow-y: auto;
               border-bottom-left-radius: 10px; 
               border-bottom-right-radius: 10px;
-              border-top-left-radius: 10px; 
-              border-top-right-radius: 10px;
+              border-top-left-radius: 10px;  
             }
         ha-markdown$: |
           div {
@@ -302,7 +301,6 @@ cards:
               font-weight:normal;
               font-size:1em;
               border-top-left-radius: 10px; 
-              border-top-right-radius: 10px;
               text-align:center;
           }
           table{
@@ -345,7 +343,7 @@ cards:
               font-size: 0.9em;
               font-weight: normal;
               text-align: center;
-              border: solid grey 2px;
+              border: solid orange 2px;
           }
           span {
               background: transparent;
@@ -392,7 +390,7 @@ cards:
             padding:0px
           }
           ha-markdown {
-              max-height: 190px;
+              max-height: 205px;
               overflow-y: auto;
               border-bottom-left-radius: 10px; 
               border-bottom-right-radius: 10px;
@@ -488,7 +486,7 @@ cards:
             padding:0px
           }
           ha-markdown {
-              max-height: 160px;
+              max-height: 205px;
               overflow-y: auto;
               border-bottom-left-radius: 10px; 
               border-bottom-right-radius: 10px;
@@ -668,6 +666,7 @@ cards:
       border-bottom-right-radius: 10px
     tabs:
       - attributes:
+          isMinWidthIndicator: true
           label: 🥗Entrées
         card:
           type: markdown
@@ -705,7 +704,7 @@ cards:
                   padding:0px
                 }
                  ha-markdown {
-                    max-height: 190px;
+                    max-height: 205px;
                     overflow-y: auto;
                     border-top-left-radius:10px;
                     border-top-right-radius:10px;
@@ -768,6 +767,7 @@ cards:
                   text-align: center;
                 }
       - attributes:
+          isMinWidthIndicator: true
           label: 🍖Plats principal
         card:
           type: markdown
@@ -805,7 +805,7 @@ cards:
                   padding:0px
                 }
                  ha-markdown {
-                    max-height: 190px;
+                    max-height: 205px;
                     overflow-y: auto;
                   }
               ha-markdown$: |
@@ -863,6 +863,7 @@ cards:
                   text-align: center;
                 }
       - attributes:
+          isMinWidthIndicator: true
           label: 🍟Accompagnements
         card:
           type: markdown
@@ -904,7 +905,7 @@ cards:
                   padding:0px
                 }
                  ha-markdown {
-                    max-height: 190px;
+                    max-height: 205px;
                     overflow-y: auto;
                   }
               ha-markdown$: |
@@ -962,6 +963,7 @@ cards:
                   text-align: center;
                 }
       - attributes:
+          isMinWidthIndicator: true
           label: 🧀Fromages
         card:
           type: markdown
@@ -999,7 +1001,7 @@ cards:
                   padding:0px
                 }
                  ha-markdown {
-                    max-height: 190px;
+                    max-height: 205px;
                     overflow-y: auto;
                   }
               ha-markdown$: |
@@ -1057,6 +1059,7 @@ cards:
                   text-align: center;
                 }
       - attributes:
+          isMinWidthIndicator: true
           label: 🍦Desserts
         card:
           type: markdown
@@ -1093,7 +1096,7 @@ cards:
                   padding:0px
                 }
                  ha-markdown {
-                    max-height: 190px;
+                    max-height: 205px;
                     overflow-y: auto;
                   }
               ha-markdown$: |
