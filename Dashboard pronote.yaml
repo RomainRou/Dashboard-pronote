@@ -356,101 +356,102 @@ cards:
             text-align: left;
           }
 #carte evaluations          
-  - type: markdown
-    content: |-
-      <div>
-        📝 Evaluations
-      </div> 
-      <table>
-        {% set items = state_attr('sensor.pronote_NOM_PRENOM_evaluations','evaluations')%}  {% for i in range(0, items | count, 1) %} 
-        <tr> 
-          <td width='20%'>
-            <mark> {{ items[i].date.strftime("%d/%m") }} 
-          </td> 
-          <td width='40%'> {{ items[i].subject }} 
-          </td> 
-          <td width='20%'>
-            {% set acquisitions = items[i].acquisitions %}{% for j in range(0,acquisitions|count,1) %}{% if acquisitions[j].level == 'Très bonne maîtrise' %}✅ {% elif acquisitions[j].level == 'Maîtrise satisfaisante' %}🟩{% elif acquisitions[j].level == 'Maîtrise fragile'  %}🟧{% elif acquisitions[j].level == 'Maîtrise insuffisante'  %}🟥{% else %}?{% endif %}{% endfor %}
-          </td>
-          <td width='20%'>
-            <h1>
-              {{items[i].name}}
-            </h1>
-          </td> 
-        </tr> 
-        {% endfor %}
-      </table>
-    card_mod:
-      style:
-        .: |
-          ha-card ha-markdown {
-            padding:0px
-          }
-          ha-card ha-markdown.no-header {
-            padding:0px
-          }
-          ha-markdown {
-              max-height: 205px;
-              overflow-y: auto;
-              border-bottom-left-radius: 10px; 
-              border-bottom-right-radius: 10px;
-              border-top-left-radius: 10px; 
-          }
-        ha-markdown$: |
-          div{
-              background-color: rgb(54, 54, 54, 0.3);
-              padding: 5px 5px;
-              color:white;
-              font-weight:normal;
-              text-align: center;
-              font-size:1em;
-              border-top-left-radius: 10px; 
-              border-top-right-radius: 10px; 
-              }
-          table{
-              border-collapse: collapse;
-              font-family: Roboto;
-              outline: 0px solid #393c3d;
-              font-size:0.7em;
-              width: 100%;
-              }
-          td {
-              padding: 5px 8px 5px 8px;
-              border-bottom: 0px solid #1c2020;
-              }
-          tr {
-              line-height: 4px;
-              margin-top:0px;
-              background-color:transparent;
-              }
-          tr:nth-of-type(even) {
-              background-color: rgb(54, 54, 54, 0.3);
-              }
-          tr:last-of-type {
-              border-bottom: transparent;
-              }
-            h1{
-              font-size: 1em;
-              }
-          mark {
-              background: transparent;
-              color: white;
-              border-radius: 5px;
-              padding: 5px;
-              border: solid grey 2px;
-              }
-          span {
-              background: #EC4B34;
-              color: #222627;
-              border-radius: 10px;
-              padding: 5px;
-              }
-          span {
-              padding: 5px;
-              }
-          tr:nth-child(n+2) > td:nth-child(2) {
-            text-align: left;
-              }
+  type: markdown
+  content: |-
+    <div>
+      📝 Evaluations de nathan<br>
+      ✅très bonne maitrise,🟩bonne maitrise,🟧maitrise fragile,🟥maitrise insufisante,🚫absent,❌dispensé
+    </div> 
+    <table>
+      {% set items = state_attr('sensor.pronote_NOM_PRENOM_evaluations','evaluations')%}  {% for i in range(0, items | count, 1) %} 
+      <tr> 
+        <td width='20%'>
+          <mark> {{ items[i].date.strftime("%d/%m") }} 
+        </td> 
+        <td width='40%'> {{ items[i].subject }} 
+        </td> 
+        <td width='20%'>
+          {% set acquisitions = items[i].acquisitions %}{% for j in range(0,acquisitions|count,1) %}{% if acquisitions[j].level == 'Très bonne maîtrise' %}✅ {% elif acquisitions[j].level == 'Maîtrise satisfaisante' %}🟩{% elif acquisitions[j].level == 'Maîtrise fragile'  %}🟧{% elif acquisitions[j].level == 'Maîtrise insuffisante'  %}🟥{% elif acquisitions[j].level == 'Absent'  %}🚫{% elif acquisitions[j].level == 'Dispensé'  %}❌{% else %}?{% endif %}{% endfor %}
+        </td>
+        <td width='20%'>
+          <h1>
+            {{items[i].name}}
+          </h1>
+        </td> 
+      </tr> 
+      {% endfor %}
+    </table>
+  card_mod:
+    style:
+      .: |
+        ha-card ha-markdown {
+          padding:0px
+        }
+        ha-card ha-markdown.no-header {
+          padding:0px
+        }
+        ha-markdown {
+            max-height: 205px;
+            overflow-y: auto;
+            border-bottom-left-radius: 10px; 
+            border-bottom-right-radius: 10px;
+            border-top-left-radius: 10px; 
+            border-top-right-radius: 10px;
+        }
+      ha-markdown$: |
+        div{
+            background-color: rgb(54, 54, 54, 0.3);
+            padding: 5px 5px;
+            color:white;
+            font-weight:normal;
+            text-align: center;
+            font-size:1em; 
+            border-top-left-radius: 10px; 
+            }
+        table{
+            border-collapse: collapse;
+            font-family: Roboto;
+            outline: 0px solid #393c3d;
+            font-size:0.7em;
+            width: 100%;
+            }
+        td {
+            padding: 5px 8px 5px 8px;
+            border-bottom: 0px solid #1c2020;
+            }
+        tr {
+            line-height: 4px;
+            margin-top:0px;
+            background-color:transparent;
+            }
+        tr:nth-of-type(even) {
+            background-color: rgb(54, 54, 54, 0.3);
+            }
+        tr:last-of-type {
+            border-bottom: transparent;
+            }
+          h1{
+            font-size: 1em;
+            }
+        mark {
+            background: transparent;
+            color: white;
+            border-radius: 5px;
+            padding: 5px;
+            border: solid grey 2px;
+            }
+        span {
+            background: #EC4B34;
+            color: #222627;
+            border-radius: 10px;
+            padding: 5px;
+            }
+        span {
+            padding: 5px;
+            }
+        tr:nth-child(n+2) > td:nth-child(2) {
+          text-align: left;
+            }
 #carte devoirs              
   - type: markdown
     content: |-
@@ -550,107 +551,111 @@ cards:
             text-align: left;
           }
 #carte informations          
-  - type: markdown
-    content: |-
-      <div>🗞️Informations et sondages college</div>
-      <table>
-          <tbody>
-              {% set items = state_attr('sensor.pronote_NOM_PRENOM_information_and_surveys','information_and_surveys') %}
-              {%-for i in range(0, items | count, 1) -%}
-              <tr> 
-                  <td><h2>{{items[i].author}} : {{items[i].category}}</h2>
-                  {{items[i].content}}</td>
-              </tr>
-              {% endfor %}
-        </tbody>
-      </table>
-    card_mod:
-      style:
-        .: |
-          ha-card ha-markdown {
-            padding:0px
+  type: markdown
+  content: |-
+    <div>🗞️Informations et sondages college</div>
+    <table>
+        <tbody>
+            {% set items = state_attr('sensor.pronote_NOM_PRENOM_information_and_surveys','information_and_surveys') %}
+            {%-for i in range(0, items | count, 1) -%}
+            <tr> 
+                <td><h2>{{items[i].author}} / {{items[i].category}} :</h2>
+                {{items[i].content}}</td>
+            </tr>
+            {% endfor %}
+      </tbody>
+    </table>
+  card_mod:
+    style:
+      .: |
+        ha-card ha-markdown {
+          padding:0px
+        }
+        ha-card ha-markdown.no-header {
+          padding:0px
+        }
+        ha-markdown {
+            max-height: 205px;
+            overflow-y: auto;
+            border-bottom-left-radius: 10px; 
+            border-bottom-right-radius: 10px;
+            border-top-left-radius: 10px; 
+            border-top-right-radius: 10px;
           }
-          ha-card ha-markdown.no-header {
-            padding:0px
-          }
-          ha-markdown {
-              max-height: 190px;
-              overflow-y: auto;
-              border-bottom-left-radius: 10px; 
-              border-bottom-right-radius: 10px;
-              border-top-left-radius: 10px; 
+      ha-markdown$: |
+        div {
+            background-color:rgb(54, 54, 54, 0.3);
+            padding: 5px 5px;
+            color:white;
+            font-weight:normal;
+            font-size:1em;
+            border-top-left-radius: 10px; 
+            text-align: center;
+             
+        }
+        mark {
+            background: #00BD81;
+            color: #222627;
+            border-radius: 5px;
+            padding: 5px;
+            border: solid #005f41 2px;
+            font-size: 1.2em;
             }
-        ha-markdown$: |
-          div {
-              background-color:rgb(54, 54, 54, 0.3);
-              padding: 5px 5px;
-              color:white;
-              font-weight:normal;
-              font-size:1em;
-              border-top-left-radius: 10px; 
-              text-align: center;
-               
-          }
-          mark {
-              background: transparent;
-              color: white;
-              border-radius: 5px;
-              padding: 5px;
-              border: solid #005f41 2px;
-              font-size: 1.2em;
-              }
-          h2 {
-              background: #2471A3;
-              color: white;
-              border-radius: 5px;
-              padding: 5px;
-              border: solid #A9CCE3 2px;
-              font-size: 1.2em;
-              }
-          table{
-            border-collapse: collapse;
-            font-size: 0.85em;
-            font-family: Roboto;
-            width: auto;
-            outline: 0px solid #393c3d;
-            margin-top: 0px;
-          } caption {
-              text-align: center;
-              font-weight: bold;
-              font-size: 1em;
-          } td {
-              padding: 5px 8px 5px 8px;
-              text-align: left;
-              border-bottom: 0px solid #1c2020;
-          }
-          tr {
-              border-bottom: 0px solid #1c2020;
-          }
-
-          tr:nth-of-type(even) {
-              background-color: rgb(54, 54, 54, 0.3);
-          }
-          tr:last-of-type {
-              border-bottom: transparent;
-          }
-          mark {
-              background: #009767;
-              color: #222627;
-              border-radius: 5px;
-              padding: 5px;
-          }
-          span {
-              background: #EC4B34;
-              color: #222627;
-              border-radius: 5px;
-              padding: 5px;
-          }
-          span {
-              padding: 5px;
-          }
-          tr:nth-child(n+2) > td:nth-child(2) {
+        h2 {
+            background: #2471A3;
+            color: white;
+            border-radius: 5px;
+            padding: 5px;
+            border: solid #A9CCE3 2px;
+            font-size: 1em;
+            text-align: center;
+            margin-left: 10%;
+            margin-right: 10%;
+            }
+        table{
+          border-collapse: collapse;
+          font-size: 0.85em;
+          font-family: Roboto;
+          width: auto;
+          outline: 0px solid #393c3d;
+          margin-top: 0px;
+        } caption {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1em;
+        } td {
+            padding: 5px 8px 5px 8px;
             text-align: left;
-          }
+            border-bottom: 0px solid #1c2020;
+        }
+        tr {
+            border-bottom: 0px solid #1c2020;
+        }
+  
+        tr:nth-of-type(even) {
+            background-color: rgb(54, 54, 54, 0.3);
+        }
+        tr:last-of-type {
+            border-bottom: transparent;
+        }
+        mark {
+            background: #009767;
+            color: #222627;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        span {
+            background: #EC4B34;
+            color: #222627;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        span {
+            padding: 5px;
+        }
+        tr:nth-child(n+2) > td:nth-child(2) {
+          text-align: left;
+        }
 #carte menus          
   - type: custom:tabbed-card
     title: menu cantine
